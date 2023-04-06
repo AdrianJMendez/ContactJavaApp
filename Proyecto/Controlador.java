@@ -2,6 +2,15 @@ package Proyecto;
 
 public class Controlador
 {
+
+
+        public void Add(int index, Contactos nvoContacto){
+
+
+
+        }
+
+
 }
 //metodo agregar contacto
     public static void agregarContacto(ArrayList<Contacto> lista, Contacto nuevoContacto) {
