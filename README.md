@@ -27,5 +27,15 @@ isFavorito(): método que devuelve si el contacto está en la lista de favoritos
 setFavorito(boolean favorito): método que establece si el contacto está en la lista de favoritos.
 Cada uno de estos métodos permite acceder y modificar los atributos de la clase, lo que permite manipular y acceder a la información de cada contacto de manera eficiente y organizada.
 
+La clase ContactList representa una lista de contactos organizada alfabéticamente. Los contactos se almacenan en una LinkedList
+que contiene un ArrayList para cada letra del alfabeto y otro para los nombres que empiezan con un caracter que no es una letra.
+Cada ArrayList se encuentra ordenado alfabéticamente.
+La clase ofrece los métodos para agregar, remover y buscar contactos.
+@author AdrianJMendez
+@version 1.0
+@since 5/4/23
+*/
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 
