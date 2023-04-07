@@ -24,8 +24,8 @@ public class ContactList {
      */
     protected void Add(Contacto nvoContacto){
          char PrimeraLetra = nvoContacto.getNombre().charAt(0); //Revisa la primera letra del Nombre del contacto
+         char letra = 'A';
             for(int i = 0; i < 27; i++){
-                char letra = 'A';
                     if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){
                             listaContactos.get(i).add(nvoContacto);
 
@@ -42,8 +42,8 @@ public class ContactList {
      */
         protected void Remove(String Nombre){
             char PrimeraLetra = Nombre.charAt(0); //Revisa la primera letra del Nombre del contacto
+            char letra = 'A';
             for(int i = 0; i < 27; i++){
-                char letra = 'A';
                 if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){
                     ArrayList<Contacto> listaI =  listaContactos.get(i);
                      for(int j = 0; j < listaI.size(); j++){
@@ -68,8 +68,8 @@ public class ContactList {
         protected Contacto Search(String Nombre){
             Contacto nvoContacto = null;
             char PrimeraLetra = Nombre.charAt(0); //Revisa la primera letra del Nombre del contacto
+            char letra = 'A';
             for(int i = 0; i < 27; i++){
-                char letra = 'A';
                 if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){// compara las letras para saber a que sublista pertenece
                     ArrayList<Contacto> listaI =  listaContactos.get(i);
                     for(int j = 0; j < listaI.size(); j++){

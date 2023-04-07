@@ -6,13 +6,13 @@ public class Contacto {
     private String Email;
     private String Direccion;
     private String Tipo;
-    private double Telefono;
+    private int Telefono;
     private boolean Favorito;
 
     /* true si esta en la lista de favoritos, false si no lo esta */
 
 
-    public Contacto(String nombre, String email, String direccion, String tipo, double telefono, boolean favorito) {
+    public Contacto(String nombre, String email, String direccion, String tipo, int telefono, boolean favorito) {
         Nombre = nombre;
         Email = email;
         Direccion = direccion;
@@ -57,7 +57,7 @@ public class Contacto {
         return Telefono;
     }
 
-    public void setTelefono(double telefono) {
+    public void setTelefono(int telefono) {
         Telefono = telefono;
     }
 
