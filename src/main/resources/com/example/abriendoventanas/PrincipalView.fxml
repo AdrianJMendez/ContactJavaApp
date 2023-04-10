@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.abriendoventanas.PrincipalController">
+   <children>
+      <TableView fx:id="tblPersonas" layoutX="29.0" layoutY="106.0" onMouseClicked="#ChangeScreen" prefHeight="472.0" prefWidth="494.0">
+        <columns>
+          <TableColumn fx:id="colNombre" prefWidth="182.0" text="Nombre" />
+          <TableColumn fx:id="colEmail" prefWidth="148.0" text="Email" />
+            <TableColumn fx:id="colTelefono" prefWidth="197.0" text="Teléfono" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAgregar" layoutX="576.0" layoutY="510.0" mnemonicParsing="false" onAction="#agregar" prefHeight="40.0" prefWidth="70.0" text="Agregar " />
+      <Button fx:id="btneliminar" layoutX="747.0" layoutY="510.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="40.0" prefWidth="70.0" text="Eliminar" />
+      <Button fx:id="btnmodificar" layoutX="660.0" layoutY="510.0" mnemonicParsing="false" onAction="#modificar" prefHeight="40.0" prefWidth="70.0" text="Editar" />
+      <TextField fx:id="txtFiltrarNombre" layoutX="144.0" layoutY="28.0" onKeyReleased="#filtrarNombre" />
+      <Label layoutX="29.0" layoutY="32.0" text="Filtrar por nombre" />
+      <VBox layoutX="28.0" layoutY="60.0" prefHeight="40.0" prefWidth="494.0" spacing="5.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="518.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#ShowOthers" prefHeight="25.0" prefWidth="400.0" text="#" />
+                  <Button fx:id="btnTodos" mnemonicParsing="false" onAction="#ShowAll" prefHeight="25.0" prefWidth="400.0" text="Todos" />
+                  <Button fx:id="btnFav" mnemonicParsing="false" onAction="#ShowFav" prefHeight="25.0" prefWidth="400.0" text="Favoritos" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ListView fx:id="Listfilter" layoutX="524.0" layoutY="131.0" onMouseClicked="#FilterByLetter" prefHeight="447.0" prefWidth="39.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="530.0" layoutY="106.0" prefHeight="25.0" prefWidth="29.0" text="#" />
+      <VBox alignment="CENTER" layoutX="576.0" layoutY="129.0" prefHeight="368.0" prefWidth="239.0">
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="164.0" prefWidth="239.0">
+               <children>
+                  <ImageView fx:id="imgUser" fitHeight="207.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/usuario.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgShowFav" fitHeight="67.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/Nofavorito.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox prefHeight="189.0" prefWidth="239.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="181.0" prefWidth="121.0" spacing="20.0">
+                     <children>
+                        <Label text="Nombre" />
+                        <Label text="Teléfono" />
+                        <Label text="Email" />
+                        <Label text="Dirección" />
+                        <Label text="Tipo" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="181.0" prefWidth="118.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="txtShowNombre">
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="txtShowTelefono" />
+                        <Label fx:id="txtShowEmail" />
+                        <Label fx:id="txtShowDireccion" />
+                        <Label fx:id="txtShowTipo" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="txtShowFav" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

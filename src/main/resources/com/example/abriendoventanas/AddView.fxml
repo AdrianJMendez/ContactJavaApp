@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="370.0" prefWidth="334.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.abriendoventanas.AddController">
+   <children>
+      <Button fx:id="btnSalir" layoutX="81.0" layoutY="317.0" mnemonicParsing="false" onAction="#salir" prefHeight="25.0" prefWidth="149.0" text="Salir" />
+      <Label layoutX="38.0" layoutY="35.0" text="Nombre" />
+      <TextField fx:id="txtNombre" layoutX="102.0" layoutY="31.0" prefHeight="25.0" prefWidth="162.0" />
+      <Label layoutX="36.0" layoutY="73.0" text="Teléfono" />
+      <TextField fx:id="txtTelefono" layoutX="102.0" layoutY="69.0" prefHeight="25.0" prefWidth="162.0" />
+      <Label layoutX="37.0" layoutY="110.0" text="Email" />
+      <TextField fx:id="txtEmail" layoutX="102.0" layoutY="106.0" prefHeight="25.0" prefWidth="162.0" />
+      <Button fx:id="btnGuardar" layoutX="81.0" layoutY="275.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="149.0" text="Guardar" />
+      <Label layoutX="37.0" layoutY="147.0" text="Dirección" />
+      <TextField fx:id="txtDireccion" layoutX="102.0" layoutY="143.0" prefHeight="25.0" prefWidth="162.0" />
+      <Label layoutX="38.0" layoutY="189.0" />
+      <Label layoutX="36.0" layoutY="189.0" text="Tipo" />
+      <ComboBox fx:id="cmbTipo" layoutX="101.0" layoutY="185.0" onShowing="#ListarTipos" prefHeight="25.0" prefWidth="162.0" />
+      <RadioButton fx:id="rdFavorito" layoutX="38.0" layoutY="234.0" mnemonicParsing="false" text="Favorito" />
+   </children>
+   <padding>
+      <Insets left="10.0" top="20.0" />
+   </padding>
+</AnchorPane>
