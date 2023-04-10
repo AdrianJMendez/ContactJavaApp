@@ -11,16 +11,7 @@ public class ContactList {
 
     LinkedList<ArrayList<Contacto>> listaContactos = new LinkedList<ArrayList<Contacto>>();
 
-    //Sublistas de la A a Z
-    public void SublistaLetras() {
-        for (int i = 0; i < 27; i++) {
-            this.listaContactos.add(new ArrayList<Contacto>());
-        }
-    }
-    //Sublista de nombres con caracteres
-    public void Sublista() {
-            this.listaContactos.add(new ArrayList<Contacto>());
-    }
+
 
 
     /**

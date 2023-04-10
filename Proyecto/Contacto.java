@@ -1,4 +1,4 @@
-package Proyecto;
+package com.example.abriendoventanas;
 
 public class Contacto {
 
@@ -69,4 +69,5 @@ public class Contacto {
         Favorito = favorito;
     }
 }
+
 
