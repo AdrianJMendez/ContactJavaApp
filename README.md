@@ -27,15 +27,26 @@ isFavorito(): método que devuelve si el contacto está en la lista de favoritos
 setFavorito(boolean favorito): método que establece si el contacto está en la lista de favoritos.
 Cada uno de estos métodos permite acceder y modificar los atributos de la clase, lo que permite manipular y acceder a la información de cada contacto de manera eficiente y organizada.
 
-La clase ContactList representa una lista de contactos organizada alfabéticamente. Los contactos se almacenan en una LinkedList
-que contiene un ArrayList para cada letra del alfabeto y otro para los nombres que empiezan con un caracter que no es una letra.
-Cada ArrayList se encuentra ordenado alfabéticamente.
-La clase ofrece los métodos para agregar, remover y buscar contactos.
-@author AdrianJMendez
-@version 1.0
-@since 5/4/23
-*/
-import java.util.ArrayList;
+La clase ContactList es una clase Java que modela una lista de contactos organizada alfabéticamente. La lista se almacena en una LinkedList que contiene un ObservableList para cada letra del alfabeto y otro para los nombres que empiezan con un caracter que no es una letra. Cada ObservableList se encuentra ordenado alfabéticamente.
+
+Esta clase fue actualizada recientemente para cambiar la estructura de los ArrayLists por ObservableArrayLists. Esto permite que los cambios en la lista sean notificados automáticamente a los elementos que la están observando, por ejemplo, una interfaz gráfica de usuario construida con JavaFX.
+
+La clase cuenta con los siguientes métodos:
+
+SublistaLetras(): Crea los ObservableLists que representan a cada letra del alfabeto.
+Sublista(): Crea el ObservableList que representa a los nombres que empiezan con un caracter que no es una letra.
+Add(LinkedList<ArrayList<Contacto>> listaContactos, Contacto nvoContacto): Agrega un contacto a la lista de contactos.
+Remove(String Nombre): Remueve un contacto de la lista de contactos.
+Search(String Nombre): Busca un contacto en la lista de contactos.
+Para utilizar esta clase, es necesario importar las siguientes librerías:
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.util.LinkedList;
+
+
+@version 1.1
+@since 15/4/23
+
 
 

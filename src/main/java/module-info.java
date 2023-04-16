@@ -3,6 +3,6 @@ module com.example.abriendoventanas {
     requires javafx.fxml;
 
 
-    opens com.example.abriendoventanas to javafx.fxml;
-    exports com.example.abriendoventanas;
+    opens com.example.Proyecto to javafx.fxml;
+    exports com.example.Proyecto;
 }

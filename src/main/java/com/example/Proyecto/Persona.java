@@ -1,4 +1,4 @@
-package com.example.abriendoventanas;
+package com.example.Proyecto;
 
 import java.util.Objects;
 

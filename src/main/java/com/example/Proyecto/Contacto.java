@@ -1,4 +1,4 @@
-package com.example.abriendoventanas;
+package com.example.Proyecto;
 
 public class Contacto {
 

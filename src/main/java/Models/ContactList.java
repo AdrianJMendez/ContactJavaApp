@@ -1,9 +1,11 @@
 package Models;
 
-import com.example.abriendoventanas.Contacto;
-
+import com.example.Proyecto.Contacto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 
 /**
  * Crea un objeto ContactList, que es una lista de contactos organizada alfabéticamente. Los contactos se almacenan en una LinkedList doble
@@ -12,18 +14,19 @@ import java.util.LinkedList;
  */
 public class ContactList {
 
-    LinkedList<ArrayList<Contacto>> listaContactos = new LinkedList<ArrayList<Contacto>>();
-
+    LinkedList<ObservableList<Contacto>> listaContactos = new LinkedList<>();
 
     //Sublistas de la A a Z
     public void SublistaLetras() {
         for (int i = 0; i < 27; i++) {
-            this.listaContactos.add(new ArrayList<Contacto>());
+            ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList();
+            this.listaContactos.add(nuevaLista);
         }
     }
     //Sublista de nombres con caracteres
     public void Sublista() {
-        this.listaContactos.add(new ArrayList<Contacto>());
+        ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList();
+        this.listaContactos.add(nuevaLista);
     }
 
     /**
@@ -55,7 +58,7 @@ public class ContactList {
             for(int i = 0; i < 27; i++){
                 char letra = 'A';
                 if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){
-                    ArrayList<Contacto> listaI =  listaContactos.get(i);
+                    ObservableList<Contacto> listaI =  listaContactos.get(i);
                      for(int j = 0; j < listaI.size(); j++){
                          if(listaI.get(j).getNombre().equalsIgnoreCase(Nombre)){
                              listaI.remove(j);
@@ -81,7 +84,7 @@ public class ContactList {
             for(int i = 0; i < 27; i++){
                 char letra = 'A';
                 if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){// compara las letras para saber a que sublista pertenece
-                    ArrayList<Contacto> listaI =  listaContactos.get(i);
+                    ObservableList<Contacto> listaI =  listaContactos.get(i);
                     for(int j = 0; j < listaI.size(); j++){
                         if(listaI.get(j).getNombre().equalsIgnoreCase(Nombre)){
                             nvoContacto = listaI.get(j);
