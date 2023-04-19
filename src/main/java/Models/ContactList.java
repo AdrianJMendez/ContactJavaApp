@@ -1,6 +1,7 @@
 package Models;
 
 import com.example.Proyecto.Contacto;
+import com.example.Proyecto.TelefonoCache;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.ArrayList;
@@ -14,7 +15,11 @@ import java.util.LinkedList;
  */
 public class ContactList {
 
-    LinkedList<ObservableList<Contacto>> listaContactos = new LinkedList<>();
+    public LinkedList<ObservableList<Contacto>> listaContactos = new LinkedList<>();
+
+    public ObservableList<TelefonoCache> listaTelfonos = FXCollections.observableArrayList(); // memoria cache de numeros telefonicos
+
+
 
     //Sublistas de la A a Z
     public void SublistaLetras() {
@@ -29,6 +34,27 @@ public class ContactList {
         this.listaContactos.add(nuevaLista);
     }
 
+
+    public char SearchCache(int numero){
+        char existe = 0;
+        for(int i = 0; i<listaTelfonos.size(); i++) {
+                TelefonoCache nvoTelefono = listaTelfonos.get(i);
+                if(numero == nvoTelefono.getTelefono()){
+                    existe = nvoTelefono.getLetra();
+                break;
+                }
+
+        }
+
+      return existe;
+
+    }
+
+
+
+
+
+
     /**
      * Agrega un contacto a la lista de contactos.
      *
@@ -36,15 +62,27 @@ public class ContactList {
      * @param nvoContacto    El objeto Contacto que se desea agregar.
      */
     protected void Add(LinkedList<ArrayList<Contacto>> listaContactos, Contacto nvoContacto){
-         char PrimeraLetra = nvoContacto.getNombre().charAt(0); //Revisa la primera letra del Nombre del contacto
-            for(int i = 0; i < 27; i++){
-                char letra = 'A';
-                    if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){
-                            this.listaContactos.get(i).add(nvoContacto);
+        char PrimeraLetra = nvoContacto.getNombre().toLowerCase().charAt(0); //Revisa la primera letra del Nombre del contacto
+        char letra = 'A';
+            if (PrimeraLetra <= 'z'&& PrimeraLetra >= 'a') {
 
+                for (int i = 0; i < 26; i++) {
+
+                    if (PrimeraLetra == letra) {
+                        this.listaContactos.get(i).add(nvoContacto);
+                        TelefonoCache nvoNumero = new TelefonoCache(PrimeraLetra, nvoContacto.getTelefono());
+                        this.listaTelfonos.add(nvoNumero);
                         break;
                     }
-                letra ++;
+                    letra++;
+                }
+
+            }else{
+
+                this.listaContactos.get(26).add(nvoContacto);
+                TelefonoCache nvoNumero = new TelefonoCache(PrimeraLetra, nvoContacto.getTelefono());
+                this.listaTelfonos.add(nvoNumero);
+
             }
     }
 

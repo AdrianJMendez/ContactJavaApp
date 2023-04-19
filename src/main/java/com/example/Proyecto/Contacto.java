@@ -53,7 +53,7 @@ public class Contacto {
         Tipo = tipo;
     }
 
-    public double getTelefono() {
+    public int getTelefono() {
         return Telefono;
     }
 
