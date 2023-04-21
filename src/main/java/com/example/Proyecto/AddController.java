@@ -44,22 +44,26 @@ public class AddController implements Initializable {
 
     public ObservableList<Contacto> contactos;
 
+    public ContactList listaContactos;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void initAtributtes(ObservableList<Contacto> contactos){
-        this.contactos=contactos;
+    public void initAtributtes(ContactList contactos){
+        this.listaContactos=contactos;
     }
 
-    public void initAtributtes(ObservableList<Contacto> contactos, Contacto contacto){
-        this.contactos=contactos;
+    public void initAtributtes(ContactList contactos, Contacto contacto){
+        this.listaContactos=contactos;
         this.contacto=contacto;
         this.txtNombre.setText(contacto.getNombre());
         this.txtDireccion.setText(contacto.getDireccion());
         this.txtTelefono.setText(contacto.getTelefono()+"");
         this.txtEmail.setText(contacto.getEmail());
+        this.rdFavorito.setCache(contacto.isFavorito());
+        this.tiposList.setAll(contacto.getTipo());
     }
 
 
@@ -71,58 +75,72 @@ public class AddController implements Initializable {
 
     public void guardar(ActionEvent actionEvent) {
 
-        String nombre=this.txtNombre.getText();
-        int telefono = Integer.parseInt(this.txtTelefono.getText());
-        String email=this.txtEmail.getText();
-        String direccion=this.txtDireccion.getText();
-        String tipo= (String) this.cmbTipo.getSelectionModel().getSelectedItem();
-        boolean fav= rdFavorito.isSelected();
+
+        try{
+            String nombre=this.txtNombre.getText();
+            int telefono = Integer.parseInt(this.txtTelefono.getText());
+            String email=this.txtEmail.getText();
+            String direccion=this.txtDireccion.getText();
+            String tipo= (String) this.cmbTipo.getSelectionModel().getSelectedItem();
+            boolean fav= rdFavorito.isSelected();
 
 
 
-       Contacto contacto1=new Contacto(nombre,email,direccion,tipo,telefono,fav);
+            Contacto contacto1=new Contacto(nombre,email,direccion,tipo,telefono,fav);
 
 
-        if(!contactos.contains(contacto1)){
-            // este if diferencia el boton guardar en los casos de crear o modificar
-            //Modificar
-            if(this.contacto!=null){
-                this.contacto.setNombre(nombre);
-                this.contacto.setDireccion(direccion);
-                this.contacto.setEmail(email);
-                this.contacto.setTelefono(telefono);
+            if(!listaContactos.contains(contacto1)){
+                // este if diferencia el boton guardar en los casos de crear o modificar
+                //Modificar
+                if(this.contacto!=null){
+                    this.contacto.setNombre(nombre);
+                    this.contacto.setDireccion(direccion);
+                    this.contacto.setEmail(email);
+                    this.contacto.setTelefono(telefono);
+                    this.contacto.setFavorito(fav);
+                    this.contacto.setTipo(tipo);
 
 
-                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Informacion");
+                    alert.setContentText("Se ha modificado el contacto");
+                    alert.showAndWait();
+
+                }else{
+                    //insertando persona nueva
+                    this.contacto=contacto1;
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Informacion");
+                    alert.setContentText("Se ha añadido correctamente");
+                    alert.showAndWait();
+                }
+
+
+
+                Stage stage=(Stage) this. btnGuardar.getScene().getWindow();  // cerrar la ventana
+                stage.close();
+
+
+            }else {
+
+                Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setTitle("Informacion");
-                alert.setContentText("Se ha modificado el contacto");
-                alert.showAndWait();
-
-            }else{
-                //insertando persona nueva
-                this.contacto=contacto1;
-                Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(null);
-                alert.setTitle("Informacion");
-                alert.setContentText("Se ha añadido correctamente");
+                alert.setTitle("Error");
+                alert.setContentText("La persona ya existe");
                 alert.showAndWait();
             }
 
-
-
-            Stage stage=(Stage) this. btnGuardar.getScene().getWindow();  // cerrar la ventana
-            stage.close();
-
-
-        }else {
+        }catch(NumberFormatException e){
 
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Error");
-            alert.setContentText("La persona ya existe");
+            alert.setContentText("Ingrese un teléfono valido");
             alert.showAndWait();
         }
+
 
 
     }

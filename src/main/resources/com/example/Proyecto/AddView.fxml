@@ -14,9 +14,9 @@
       <Label layoutX="38.0" layoutY="35.0" text="Nombre" />
       <TextField fx:id="txtNombre" layoutX="102.0" layoutY="31.0" prefHeight="25.0" prefWidth="162.0" />
       <Label layoutX="36.0" layoutY="73.0" text="Teléfono" />
-      <TextField fx:id="txtTelefono" layoutX="102.0" layoutY="69.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="txtTelefono" layoutX="102.0" layoutY="69.0" prefHeight="25.0" prefWidth="162.0" promptText="xxxxxxxx" />
       <Label layoutX="37.0" layoutY="110.0" text="Email" />
-      <TextField fx:id="txtEmail" layoutX="102.0" layoutY="106.0" prefHeight="25.0" prefWidth="162.0" />
+      <TextField fx:id="txtEmail" layoutX="102.0" layoutY="106.0" prefHeight="25.0" prefWidth="162.0" promptText="xxxxxxx@xxxx.com" />
       <Button fx:id="btnGuardar" layoutX="81.0" layoutY="275.0" mnemonicParsing="false" onAction="#guardar" prefHeight="25.0" prefWidth="149.0" text="Guardar" />
       <Label layoutX="37.0" layoutY="147.0" text="Dirección" />
       <TextField fx:id="txtDireccion" layoutX="102.0" layoutY="143.0" prefHeight="25.0" prefWidth="162.0" />

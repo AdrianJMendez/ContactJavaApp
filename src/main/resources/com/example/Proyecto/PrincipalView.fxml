@@ -31,9 +31,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="518.0" spacing="5.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#ShowOthers" prefHeight="25.0" prefWidth="400.0" text="#" />
-                  <Button fx:id="btnTodos" mnemonicParsing="false" onAction="#ShowAll" prefHeight="25.0" prefWidth="400.0" text="Todos" />
-                  <Button fx:id="btnFav" mnemonicParsing="false" onAction="#ShowFav" prefHeight="25.0" prefWidth="400.0" text="Favoritos" />
+                  <Button fx:id="btnFav" mnemonicParsing="false" onAction="#ShowFav" prefHeight="25.0" prefWidth="499.0" text="Favoritos" />
                </children>
             </HBox>
          </children>

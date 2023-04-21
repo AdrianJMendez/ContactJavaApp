@@ -1,6 +1,5 @@
 package com.example.Proyecto;
 
-import Models.ContactList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,37 +63,30 @@ public class PrincipalController extends ContactList implements Initializable {
     @FXML
     private ImageView imgUser;
  
-    private LinkedList<ArrayList<Contacto>> listaContactos;
+
     public TableView<Contacto> tblPersonas;
 
-    public ObservableList<Contacto> contactos;
+   // public ObservableList<Contacto> contactos;
     public ObservableList<Contacto> filtroPersonas;
+
+    public ContactList listaContactos;
 
     //Botones para filtrar
     @FXML
     private Button btnFav;
 
 
-    @FXML
-    private Button btnOthers;
-
-
-    @FXML
-    private Button btnTodos;
-
-
-
-
-
-    private final String[] alfabeto={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+    private final String[] alfabeto={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","#"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     this.Listfilter.getItems().addAll(alfabeto);  //Inicializa la lista con las opciones de filtrar por letra
-    contactos= FXCollections.observableArrayList();
+    //contactos= FXCollections.observableArrayList();
+    listaContactos=new ContactList();
     filtroPersonas=FXCollections.observableArrayList();
-    this.tblPersonas.setItems(contactos);
+   // this.tblPersonas.setItems(contactos);
+        this.tblPersonas.setItems(this.listaContactos.GetSubList(0));//Inicilizar con la letra A por defecto
 
     //Asociando el objeto con su columna correspondiente
     this.colNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
@@ -112,7 +104,7 @@ public class PrincipalController extends ContactList implements Initializable {
            Parent root=fxmlLoader.load();
            AddController controller =fxmlLoader.getController();
            //En este punto se deberia de extraer desde la lista principal hacia el observable list para actualizar.
-           controller.initAtributtes(contactos);
+           controller.initAtributtes(this.listaContactos); // le pasamos a add controler la sublista que estamos trabajando
 
            Scene scene=new Scene(root);
            Stage stage=new Stage();
@@ -123,7 +115,8 @@ public class PrincipalController extends ContactList implements Initializable {
            Contacto contacto=controller.getContacto();
 
             if(contacto!=null){
-                this.contactos.add(contacto);
+                this.listaContactos.Add(contacto);
+                //this.contactos.add(contacto);
 
 
                 if(contacto.getNombre().toLowerCase().contains(this.txtFiltrarNombre.getText().toLowerCase())){
@@ -155,7 +148,8 @@ public class PrincipalController extends ContactList implements Initializable {
             alert.setContentText("Debes seleccionar una persona");
             alert.showAndWait();
         }else{
-            this.contactos.remove(p);
+            this.listaContactos.Remove(p);
+            //this.contactos.remove(p);
             this.filtroPersonas.remove(p);
             this.tblPersonas.refresh();
 
@@ -198,7 +192,7 @@ public class PrincipalController extends ContactList implements Initializable {
                 FXMLLoader fxmlLoader=new FXMLLoader(PrincipalController.class.getResource("AddView.fxml"));
                 Parent root=fxmlLoader.load();
                 AddController controller =fxmlLoader.getController();
-                controller.initAtributtes(contactos,p);
+                controller.initAtributtes(listaContactos,p);
 
                 Scene scene=new Scene(root);
                 Stage stage=new Stage();
@@ -244,16 +238,21 @@ public class PrincipalController extends ContactList implements Initializable {
 
         String filtroNombre=this.txtFiltrarNombre.getText(); // capturando el texto escrito en la barra de busqueda
         if(filtroNombre.isEmpty()){
-            this.tblPersonas.setItems(contactos); // si no hay nada escrito, entonces muestro todas las personas, seteo con el orignal
+            //this.tblPersonas.setItems(contactos); // si no hay nada escrito, entonces muestro todas las personas, seteo con el orignal
+            this.tblPersonas.setItems(this.listaContactos.GetSubList(0));// si no hay nada escrito, entonces muestro todas las personas, seteo con la primera lista
 
         }else{
             this.filtroPersonas.clear();
-            for(Contacto p: this.contactos){
-                if(p.getNombre().toLowerCase().contains(filtroNombre.toLowerCase())){
-                    this.filtroPersonas.add(p);
+            for(int i=0;i<26;i++){
+                for(Contacto p: this.listaContactos.GetSubList(i)){
+                    if(p.getNombre().toLowerCase().contains(filtroNombre.toLowerCase())){
+                        this.filtroPersonas.add(p);
 
+                    }
                 }
+
             }
+
             this.tblPersonas.setItems(filtroPersonas);
         }
     }
@@ -298,19 +297,14 @@ public class PrincipalController extends ContactList implements Initializable {
 
 
 
-    /**Es metodo muestra todos los contactos que no inician con una letra**/
-    public void ShowOthers(ActionEvent actionEvent) {
-    }
 
-    /**Este metodo muestra todos los contactos almacenados en una observable listo en
-     * paralelo**/
 
-    public void ShowAll(ActionEvent actionEvent) {
-    }
+
 
     /**Este metodo muestra todos los contactos marcados como favoritos**/
 
     public void ShowFav(ActionEvent actionEvent) {
+        this.tblPersonas.setItems(this.listaContactos.GetSubList(27));
     }
 
     /**Este metodo se utiliza para poder filtrar todos los contactos
@@ -318,7 +312,15 @@ public class PrincipalController extends ContactList implements Initializable {
     public void FilterByLetter(MouseEvent mouseEvent) {
 
         String filtro= this.Listfilter.getSelectionModel().getSelectedItem(); //Se obtiene la letra que el usuario selecciona de la lista
+        char letra=filtro.toLowerCase().charAt(0);
 
+        if(letra<='z'&& letra>='a'){
+
+            this.tblPersonas.setItems(this.listaContactos.GetSubList(letra));
+
+        }else{
+            this.tblPersonas.setItems(this.listaContactos.GetSubList(26));
+        }
         /**Se utiliza el metodo get array para obtener el array seleccionado por el filtro
          * luego se castea a un observable list y este se pasa a la tabla para que se actualice
          */
