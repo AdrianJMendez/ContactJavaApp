@@ -49,4 +49,23 @@ import java.util.LinkedList;
 @since 15/4/23
 
 
+HashMap<Integer, Contacto> CacheTelefono = new HashMap<>()
+Variable que almacena un objeto HashMap que sirve como caché para almacenar contactos con sus números de teléfono. Este HashMap tiene como clave un número entero y como valor un objeto de la clase Contacto.
+
+Contacto SearchNumber(Integer number)
+Método que recibe como parámetro un número de teléfono de tipo entero y devuelve un objeto de la clase Contacto que corresponde a ese número en el caché de teléfonos.
+
+Parámetros
+number: número de teléfono a buscar en el caché.
+Retorno
+Objeto de la clase Contacto que corresponde al número de teléfono proporcionado. Si no se encuentra ningún contacto con ese número en el caché, se devuelve null.
+
+@since 24/4/23
+
+Adrián de Jesús Méndez Pérez - 20221002626
+Jeyson Fernando Espinal Guevara - 20201001015
+Viktor Andre Hernandez Velasquez - 20221004546
+Oscar Daniel Estrada Euceda - 20211023336
+
+Ruta de las clases: C:\Users\Usuario\IdeaProjects\Proyecto\src\main\java
 

@@ -151,7 +151,7 @@ public class PrincipalController extends ContactList implements Initializable {
             this.listaContactos.Remove(p);
             //this.contactos.remove(p);
             this.filtroPersonas.remove(p);
-            this.tblPersonas.refresh();
+
 
             /**Al eliminar la persona seleccionada, los datos mostrados en pantalla derecha
              * vuelven a estar en blanco hasta que se seleccione otra persona
@@ -168,11 +168,13 @@ public class PrincipalController extends ContactList implements Initializable {
             alert.setContentText("Se eliminado la persona");
             alert.showAndWait();
 
-        }
+            this.tblPersonas.refresh();
 
+        }
     }
 
-    @FXML
+
+        @FXML
     void modificar(ActionEvent event) {
 
         Contacto p= this.tblPersonas.getSelectionModel().getSelectedItem();
