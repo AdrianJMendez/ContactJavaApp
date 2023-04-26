@@ -1,6 +1,6 @@
 package com.example.Proyecto;
 
-public class Contacto {
+public class Contacto implements Comparable<Contacto> {
 
     private String Nombre;
     private String Email;
@@ -75,6 +75,14 @@ public class Contacto {
     public void setFavorito(boolean favorito) {
         Favorito = favorito;
     }
+
+
+    public int compareTo(Contacto nvoContacto) {
+        return this.getNombre().compareTo(nvoContacto.getNombre());
+    }
+
+
+
 }
 
 

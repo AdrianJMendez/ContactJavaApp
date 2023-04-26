@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.HashMap;
 
@@ -45,6 +46,7 @@ public class ContactList {
 
                 if (PrimeraLetra == letra) {
                     this.listaContactos.get(i).add(nvoContacto);
+                    Collections.sort(listaContactos.get(i)); // ordena la lista cada vez que se agrega un nuevo contacto
                     this.CacheTelefono.put(nvoContacto.getTelefono(),nvoContacto);
 
                     break;
@@ -63,6 +65,7 @@ public class ContactList {
 
         if(nvoContacto.isFavorito()){
             this.listaContactos.get(27).add(nvoContacto); //Se agrega el contacto a la ultima lista si es favorito
+            Collections.sort(listaContactos.get(27));
         }
     }
 
@@ -146,7 +149,7 @@ public class ContactList {
             // De ser otra caracter se agrega directamente en la ultima sublista
 
             ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList(this.listaContactos.get(26));
-            //SubLista= (ObservableList<Contacto>)this.listaContactos.get(26);
+
             SubLista = nuevaLista;
 
         }
