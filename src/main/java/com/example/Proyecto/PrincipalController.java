@@ -27,9 +27,9 @@ import java.util.ResourceBundle;
 public class PrincipalController extends ContactList implements Initializable {
 
 
-    public TableColumn<Persona, String> colNombre;
-    public TableColumn<Persona, String> colEmail;
-    public TableColumn<Persona, Object> colTelefono;
+    public TableColumn<Contacto, String> colNombre;
+    public TableColumn<Contacto, String> colEmail;
+    public TableColumn<Contacto, Object> colTelefono;
     public Button btnAgregar;
 
     public ListView<String> Listfilter;

@@ -133,7 +133,9 @@ public class ContactList {
 
                 if(letra==PrimeraLetra){
 
-                    SubLista= (ObservableList<Contacto>)this.listaContactos.get(i);
+                    ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList(this.listaContactos.get(i));
+
+                    SubLista= nuevaLista;
 
                     break;
                 }
@@ -142,7 +144,10 @@ public class ContactList {
 
         }else{
             // De ser otra caracter se agrega directamente en la ultima sublista
-            SubLista= (ObservableList<Contacto>)this.listaContactos.get(26);
+
+            ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList(this.listaContactos.get(26));
+            //SubLista= (ObservableList<Contacto>)this.listaContactos.get(26);
+            SubLista = nuevaLista;
 
         }
 
@@ -151,7 +156,9 @@ public class ContactList {
 
     public ObservableList<Contacto> GetSubList(int index){
 
-        return (ObservableList<Contacto>)this.listaContactos.get(index);
+        ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList(this.listaContactos.get(index));
+
+        return nuevaLista;
 
     }
 
@@ -186,13 +193,12 @@ public class ContactList {
         return nvoContacto;
     }
 
-    public void ChangeOl(ArrayList<Contacto> lista){
-        ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList();
-        nuevaLista = (ObservableList<Contacto>) lista;
+    public ObservableList ChangeOl(ArrayList<Contacto> lista){
+        ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList(lista);
 
-
-
+        return nuevaLista;
     }
+
 
 
 }
