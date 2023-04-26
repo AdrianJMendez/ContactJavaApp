@@ -16,7 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import static Models.StaticMethods.isNumeric;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,6 +35,8 @@ public class PrincipalController extends ContactList implements Initializable {
     public ListView<String> Listfilter;
     public Label txtShowFav;
     public ImageView imgShowFav;
+    public TextField txtsearch;
+    public Button btnSearch;
 
     @FXML
     private Button btneliminar;
@@ -69,6 +71,8 @@ public class PrincipalController extends ContactList implements Initializable {
    // public ObservableList<Contacto> contactos;
     public ObservableList<Contacto> filtroPersonas;
 
+    public ObservableList<Contacto> filtroSearch;
+
     public ContactList listaContactos;
 
     //Botones para filtrar
@@ -85,6 +89,7 @@ public class PrincipalController extends ContactList implements Initializable {
     //contactos= FXCollections.observableArrayList();
     listaContactos=new ContactList();
     filtroPersonas=FXCollections.observableArrayList();
+    filtroSearch=FXCollections.observableArrayList();
    // this.tblPersonas.setItems(contactos);
         this.tblPersonas.setItems(this.listaContactos.GetSubList(0));//Inicilizar con la letra A por defecto
 
@@ -151,7 +156,7 @@ public class PrincipalController extends ContactList implements Initializable {
             this.listaContactos.Remove(p);
             //this.contactos.remove(p);
             this.filtroPersonas.remove(p);
-
+            this.tblPersonas.refresh();
 
             /**Al eliminar la persona seleccionada, los datos mostrados en pantalla derecha
              * vuelven a estar en blanco hasta que se seleccione otra persona
@@ -177,14 +182,14 @@ public class PrincipalController extends ContactList implements Initializable {
         @FXML
     void modificar(ActionEvent event) {
 
-        Contacto p= this.tblPersonas.getSelectionModel().getSelectedItem();
+        Contacto p=this.tblPersonas.getSelectionModel().getSelectedItem();
 
         if(p==null){
 
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setTitle("Error");
-            alert.setContentText("Debes selccionar una persona");
+            alert.setContentText("Debes seleccionar una persona");
             alert.showAndWait();
 
         }else{
@@ -195,17 +200,22 @@ public class PrincipalController extends ContactList implements Initializable {
                 Parent root=fxmlLoader.load();
                 AddController controller =fxmlLoader.getController();
                 controller.initAtributtes(listaContactos,p);
+                this.listaContactos.Remove(p);
+
 
                 Scene scene=new Scene(root);
                 Stage stage=new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.showAndWait();
+                Contacto agregar=new Contacto();
+                agregar=controller.getContacto();
 
-               Contacto aux=controller.getContacto();
+
+                 Contacto aux=controller.getContacto();
 
                 if(aux!=null){
-
+                    this.listaContactos.Add(agregar);
                     if(!aux.getNombre().toLowerCase().contains(this.txtFiltrarNombre.getText().toLowerCase())){
                         this.filtroPersonas.remove(aux);
                     }
@@ -218,6 +228,8 @@ public class PrincipalController extends ContactList implements Initializable {
                     this.txtShowDireccion.setText("");
                     this.txtShowEmail.setText("");
                     this.txtShowTipo.setText("");
+
+
 
                     this.tblPersonas.refresh();
                 }
@@ -305,9 +317,7 @@ public class PrincipalController extends ContactList implements Initializable {
 
     /**Este metodo muestra todos los contactos marcados como favoritos**/
 
-    public void ShowFav(ActionEvent actionEvent) {
-        this.tblPersonas.setItems(this.listaContactos.GetSubList(27));
-    }
+    public void ShowFav(ActionEvent actionEvent) {this.tblPersonas.setItems(this.listaContactos.GetSubList(27));}
 
     /**Este metodo se utiliza para poder filtrar todos los contactos
      * que inicien por una letra en especifico**/
@@ -326,6 +336,25 @@ public class PrincipalController extends ContactList implements Initializable {
         /**Se utiliza el metodo get array para obtener el array seleccionado por el filtro
          * luego se castea a un observable list y este se pasa a la tabla para que se actualice
          */
+
+
+    }
+
+    public void SearchBy(ActionEvent actionEvent) {
+
+        this.filtroSearch.clear();
+
+        String value=this.txtsearch.getText();
+        //Verificar si el string es entero o cadena
+        if(isNumeric(value)){
+            //Llamar metodo para buscar por telefono
+        }else{
+            //Llamar metodo para buscar por nombre
+            this.filtroSearch.add(this.listaContactos.Search(value));
+        }
+
+        this.tblPersonas.setItems(this.filtroSearch);
+        this.tblPersonas.refresh();
 
 
     }

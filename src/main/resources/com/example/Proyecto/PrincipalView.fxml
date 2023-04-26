@@ -86,5 +86,15 @@
             <Label fx:id="txtShowFav" />
          </children>
       </VBox>
+      <TextField fx:id="txtsearch" layoutX="373.0" layoutY="28.0" />
+      <Button fx:id="btnSearch" layoutX="325.0" layoutY="27.0" mnemonicParsing="false" onAction="#SearchBy" prefHeight="10.0" prefWidth="10.0">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/lupa.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

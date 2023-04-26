@@ -1,10 +1,12 @@
 package com.example.Proyecto;
 
-
+import com.example.Proyecto.Contacto;
+import com.example.Proyecto.TelefonoCache;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.HashMap;
+import java.util.Objects;
 
 
 /**
@@ -15,8 +17,8 @@ import java.util.HashMap;
 public class ContactList {
 
     public LinkedList<ObservableList<Contacto>> listaContactos = new LinkedList<>();
-    public HashMap<Integer, Contacto> CacheTelefono = new HashMap<>();
 
+    public ObservableList<TelefonoCache> listaTelfonos = FXCollections.observableArrayList(); // memoria cache de numeros telefonicos
 
 
 
@@ -27,6 +29,31 @@ public class ContactList {
             this.listaContactos.add(nuevaLista);
         }
     }
+    //Sublista de nombres con caracteres
+    public void Sublista() {
+        ObservableList<Contacto> nuevaLista = FXCollections.observableArrayList();
+        this.listaContactos.add(nuevaLista);
+    }
+
+
+    public char SearchCache(int numero){
+        char existe = 0;
+        for(int i = 0; i<listaTelfonos.size(); i++) {
+                TelefonoCache nvoTelefono = listaTelfonos.get(i);
+                if(numero == nvoTelefono.getTelefono()){
+                    existe = nvoTelefono.getLetra();
+                break;
+                }
+
+        }
+
+      return existe;
+
+    }
+
+
+
+
 
 
     /**
@@ -37,26 +64,28 @@ public class ContactList {
     protected void Add(Contacto nvoContacto){
         char PrimeraLetra = nvoContacto.getNombre().toLowerCase().charAt(0); //Revisa la primera letra del Nombre del contacto
         char letra = 'a';
-        if (PrimeraLetra <= 'z'&& PrimeraLetra >= 'a') {
+            if (PrimeraLetra <= 'z'&& PrimeraLetra >= 'a') {
 
-            for (int i = 0; i < 26; i++) {
+                for (int i = 0; i < 26; i++) {
 
-                if (PrimeraLetra == letra) {
-                    this.listaContactos.get(i).add(nvoContacto);
-                    this.CacheTelefono.put(nvoContacto.getTelefono(),nvoContacto);
-
-                    break;
+                    if (PrimeraLetra == letra) {
+                        this.listaContactos.get(i).add(nvoContacto);
+                        System.out.println("Agrego "+nvoContacto.getNombre());
+                        TelefonoCache nvoNumero = new TelefonoCache(PrimeraLetra, nvoContacto.getTelefono());
+                        this.listaTelfonos.add(nvoNumero);
+                        break;
+                    }
+                    letra++;
                 }
-                letra++;
+
+            }else{
+
+                this.listaContactos.get(26).add(nvoContacto);
+                System.out.println("Agrego "+nvoContacto.getNombre());
+                TelefonoCache nvoNumero = new TelefonoCache(PrimeraLetra, nvoContacto.getTelefono());
+                this.listaTelfonos.add(nvoNumero);
+
             }
-
-        }else{
-
-            this.listaContactos.get(26).add(nvoContacto);
-            this.CacheTelefono.put(nvoContacto.getTelefono(),nvoContacto);
-
-
-        }
 
 
         if(nvoContacto.isFavorito()){
@@ -64,8 +93,39 @@ public class ContactList {
         }
     }
 
+    /**
+     * Remueve un contacto de la lista de contactos.
+     *
+     * @param Nombre El nombre del contacto que se desea remover.
+     */
+        protected void Remove(String Nombre){
+
+            char PrimeraLetra = Nombre.charAt(0); //Revisa la primera letra del Nombre del contacto
+            char letra = 'A';
+            for(int i = 0; i < 27; i++){
+                if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){
+                    ObservableList<Contacto> listaI =  listaContactos.get(i);
+                     for(int j = 0; j < listaI.size(); j++){
+                         if(listaI.get(j).getNombre().equalsIgnoreCase(Nombre)){
+
+                             if(listaI.get(j).isFavorito()){
+                                 Contacto contactoRemover=listaI.get(j);
+                                 this.listaContactos.get(27).remove(contactoRemover); // se elimina el contacto de la ultima lista si es favorito
+                             }
+
+                             listaI.remove(j);
 
 
+                             break;
+
+                         }
+                     }
+                    break;
+                }
+                letra ++;
+            }
+
+        }
 
 
     protected Contacto Remove(Contacto contacto){
@@ -75,11 +135,9 @@ public class ContactList {
 
         if(PrimeraLetra<='z'&& PrimeraLetra>='a'){
             this.listaContactos.get(index).remove(contacto);
-            this.CacheTelefono.remove(contacto.getTelefono());
 
         }else{
             this.listaContactos.get(26).remove(contacto);
-            this.CacheTelefono.remove(contacto.getTelefono());
         }
 
         if(contacto.isFavorito()){
@@ -87,6 +145,7 @@ public class ContactList {
         }
 
 
+        System.out.println("elimino"+contacto.getNombre());
         return contacto;
 
     }
@@ -97,24 +156,30 @@ public class ContactList {
      * @param Nombre El nombre del contacto que se desea buscar.
      * @return El objeto Contacto que se corresponde con el nombre buscado. Si el contacto no existe en la lista, el método devuelve null.
      */
-    protected Contacto Search(String Nombre){
-        Contacto nvoContacto = null;
-        char PrimeraLetra = Nombre.charAt(0); //Revisa la primera letra del Nombre del contacto
-        char letra = 'A';
-        for(int i = 0; i < 27; i++){
+        protected Contacto Search(String Nombre){
+            Contacto nvoContacto = null;
+            char PrimeraLetra = Nombre.toLowerCase().charAt(0);//Revisa la primera letra del Nombre del contacto
+            int index =PrimeraLetra-97;
+                    if(PrimeraLetra<='z'&& PrimeraLetra>='a'){
+                        ObservableList<Contacto> listaI =  listaContactos.get(index);
+                        for (Contacto contacto : listaI) {
+                            if (contacto.getNombre().equalsIgnoreCase(Nombre)) {
+                                nvoContacto = contacto;
+                                break;
+                            }
+                        }
 
-            if(Character.toLowerCase(letra)== Character.toLowerCase(PrimeraLetra)){// compara las letras para saber a que sublista pertenece
-                ObservableList<Contacto> listaI =  listaContactos.get(i);
-                for(int j = 0; j < listaI.size(); j++){
-                    if(listaI.get(j).getNombre().equalsIgnoreCase(Nombre)){
-                        nvoContacto = listaI.get(j);
-                        break;
+                    }else{
+                        ObservableList<Contacto> listaI =  listaContactos.get(27);
+                        for (Contacto contacto : listaI) {
+                            if (contacto.getNombre().equalsIgnoreCase(Nombre)) {
+                                nvoContacto = contacto;
+                                break;
+                            }
+                        }
+
                     }
-                }
-                break;
-            }
-            letra ++;
-        }
+
 
         return nvoContacto;
     }
@@ -154,35 +219,46 @@ public class ContactList {
     }
 
     public boolean contains(Contacto contacto){
-        char letra=contacto.getNombre().toLowerCase().charAt(0);
-        int index=letra-97;
-        boolean bandera=false;
-        for(Contacto p:this.listaContactos.get(index)){
-            if((p.getNombre().equalsIgnoreCase(contacto.getNombre())) && (p.getTelefono() == contacto.getTelefono())
-                    && (p.getDireccion().equalsIgnoreCase(contacto.getDireccion())) && p.isFavorito() && contacto.isFavorito() && (p.getTipo().equalsIgnoreCase(contacto.getTipo())))
-            {
-                bandera=true;
+            char letra=contacto.getNombre().toLowerCase().charAt(0);
+            int index=letra-97;
+            boolean bandera=false;
+
+            if(letra<='z' && letra>='a'){
+                for(Contacto p:this.listaContactos.get(index)){
+                    if((p.getNombre().equalsIgnoreCase(contacto.getNombre())) && (p.getTelefono() == contacto.getTelefono())
+                            && (p.getDireccion().equalsIgnoreCase(contacto.getDireccion())) && p.isFavorito() && contacto.isFavorito() && (p.getTipo().equalsIgnoreCase(contacto.getTipo())))
+                    {
+                        bandera=true;
+                    }
+                }
+            }else{
+                for(Contacto p:this.listaContactos.get(27)){
+                    if((p.getNombre().equalsIgnoreCase(contacto.getNombre())) && (p.getTelefono() == contacto.getTelefono())
+                            && (p.getDireccion().equalsIgnoreCase(contacto.getDireccion())) && p.isFavorito() && contacto.isFavorito() && (p.getTipo().equalsIgnoreCase(contacto.getTipo())))
+                    {
+                        bandera=true;
+                    }
+                }
+
             }
-        }
+
 
         // el siguiente codigo deberia funcionar en teoria pero no lo hace;
         /**
-         if(letra<='z' && letra>='a'){
-         return this.listaContactos.get(index).contains(contacto);
-         }else{
-         return this.listaContactos.get(26).contains(contacto);
-         }
-         **/
-        return bandera;
+            if(letra<='z' && letra>='a'){
+
+               return this.listaContactos.get(index).contains(contacto);
+
+            }else{
+               return this.listaContactos.get(26).contains(contacto);
+
+            }
+            **/
+            return bandera;
     }
 
-    public Contacto SearchNumber (Integer number){
-
-        Contacto nvoContacto = CacheTelefono.get(number);
 
 
-        return nvoContacto;
-    }
 
 
 }

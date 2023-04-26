@@ -16,6 +16,7 @@ import static Models.StaticMethods.LlenarComboBox;
 
 public class AddController implements Initializable {
 
+    public CheckBox cbfavorito;
     @FXML
     private Button btnGuardar;
 
@@ -25,8 +26,6 @@ public class AddController implements Initializable {
     @FXML
     private ComboBox<?> cmbTipo;
 
-    @FXML
-    private RadioButton rdFavorito;
 
     @FXML
     private TextField txtDireccion;
@@ -62,8 +61,8 @@ public class AddController implements Initializable {
         this.txtDireccion.setText(contacto.getDireccion());
         this.txtTelefono.setText(contacto.getTelefono()+"");
         this.txtEmail.setText(contacto.getEmail());
-        this.rdFavorito.setCache(contacto.isFavorito());
-        this.tiposList.setAll(contacto.getTipo());
+        this.cbfavorito.setSelected(contacto.isFavorito());
+        //this.tiposList.setAll(contacto.getTipo());
     }
 
 
@@ -82,7 +81,7 @@ public class AddController implements Initializable {
             String email=this.txtEmail.getText();
             String direccion=this.txtDireccion.getText();
             String tipo= (String) this.cmbTipo.getSelectionModel().getSelectedItem();
-            boolean fav= rdFavorito.isSelected();
+            boolean fav= cbfavorito.isSelected();
 
 
 
@@ -93,12 +92,15 @@ public class AddController implements Initializable {
                 // este if diferencia el boton guardar en los casos de crear o modificar
                 //Modificar
                 if(this.contacto!=null){
+
+
                     this.contacto.setNombre(nombre);
                     this.contacto.setDireccion(direccion);
                     this.contacto.setEmail(email);
                     this.contacto.setTelefono(telefono);
                     this.contacto.setFavorito(fav);
                     this.contacto.setTipo(tipo);
+
 
 
                     Alert alert=new Alert(Alert.AlertType.INFORMATION);

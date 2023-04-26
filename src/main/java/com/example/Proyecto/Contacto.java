@@ -11,7 +11,14 @@ public class Contacto {
 
     /* true si esta en la lista de favoritos, false si no lo esta */
 
+    public Contacto(){
+        this.Nombre=null;
+        this.Email=null;
+        this.Direccion=null;
+        this.Tipo=null;
+        this.Favorito=false;
 
+    }
     public Contacto(String nombre, String email, String direccion, String tipo, int telefono, boolean favorito) {
         Nombre = nombre;
         Email = email;
