@@ -170,21 +170,13 @@ public class ContactList {
         int index=letra-97;
         boolean bandera=false;
         for(Contacto p:this.listaContactos.get(index)){
-            if((p.getNombre().equalsIgnoreCase(contacto.getNombre())) && (p.getTelefono() == contacto.getTelefono())
-                    && (p.getDireccion().equalsIgnoreCase(contacto.getDireccion())) && p.isFavorito() && contacto.isFavorito() && (p.getTipo().equalsIgnoreCase(contacto.getTipo())))
+            if((p.getNombre().equalsIgnoreCase(contacto.getNombre())) && (p.getTelefono() == contacto.getTelefono()))
             {
                 bandera=true;
             }
         }
 
-        // el siguiente codigo deberia funcionar en teoria pero no lo hace;
-        /**
-         if(letra<='z' && letra>='a'){
-         return this.listaContactos.get(index).contains(contacto);
-         }else{
-         return this.listaContactos.get(26).contains(contacto);
-         }
-         **/
+
         return bandera;
     }
 

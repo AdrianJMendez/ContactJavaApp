@@ -67,9 +67,22 @@ public class AddController implements Initializable {
 
 
     public void salir(ActionEvent actionEvent) {
-        this.contacto=null;
-        Stage stage=(Stage) this. btnGuardar.getScene().getWindow();  // cerrar la ventana
-        stage.close();
+
+        //Cuando precionamos salir pero estamos modificando, no se pierde el contacto
+        if(this.contacto!=null){
+
+            Stage stage=(Stage) this. btnGuardar.getScene().getWindow();  // cerrar la ventana
+            stage.close();
+
+
+            //Al presionar salir cuando agregamos no guardamos ningun contacto.
+        }else{
+
+            this.contacto=null;
+            Stage stage=(Stage) this. btnGuardar.getScene().getWindow();  // cerrar la ventana
+            stage.close();
+        }
+
     }
 
     public void guardar(ActionEvent actionEvent) {
@@ -130,7 +143,7 @@ public class AddController implements Initializable {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
-                alert.setContentText("La persona ya existe");
+                alert.setContentText("El contacto ya existe");
                 alert.showAndWait();
             }
 
@@ -141,6 +154,14 @@ public class AddController implements Initializable {
             alert.setTitle("Error");
             alert.setContentText("Ingrese un teléfono valido");
             alert.showAndWait();
+
+        }catch (Exception e){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Ingrese un nombre valido");
+            alert.showAndWait();
+
         }
 
 
